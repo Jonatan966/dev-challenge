@@ -8,6 +8,9 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "web": "yarn workspace @dev-challenge/server"
+  },
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.3.5",
