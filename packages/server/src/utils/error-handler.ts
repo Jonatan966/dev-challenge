@@ -9,9 +9,9 @@ export function errorHandler(
   error: AppError,
   request: Request,
   response: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Response {
-  return response.status(error.statusCode).json({
+  return response.status(error.statusCode || 500).json({
     statusCode: error.statusCode,
     status: 'error',
     message: error.message

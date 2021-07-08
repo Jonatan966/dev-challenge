@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "web": "yarn workspace @dev-challenge/server"
+    "server": "yarn workspace @dev-challenge/server"
   },
   "license": "MIT",
   "devDependencies": {
