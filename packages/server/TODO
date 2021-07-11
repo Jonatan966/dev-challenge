@@ -1,0 +1,15 @@
+Principais funcionalidades:
+  Challenges:
+    ✔ Listagem de desafios @done(21-07-11 19:37)
+    ☐ Visualizar detalhes de um desafio
+    ☐ Entrar em um desafio (gerando uma ordem de questões)
+    ☐ Finalizar um desafio
+  Questions:
+    ☐ Visualizar uma questão (liberar somente a questão atual do desafio em que o usuário se inscreveu)
+    ☐ Responder uma questão
+      Retornar se está correto e o id da próxima questão
+      Além de somar a pontuação do usuário, com base no peso do desafio e no número de questões
+    ☐ Pular uma questão
+  Leaderboard:
+    ☐ Listar o placar de líderes
+    ☐ Visualizar as estatísticas detalhadas de um usuário
