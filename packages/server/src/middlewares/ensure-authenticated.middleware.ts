@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
+
+import { databaseClient } from '../prisma/client'
 import { AppError } from '../utils/error-handler'
 
-export function ensureAuthenticated(
+export async function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction
-): void {
+): Promise<void> {
   const authToken = request.headers.authorization
 
   if (!authToken) {
@@ -26,7 +28,23 @@ export function ensureAuthenticated(
   const [, token] = authToken.split(' ')
 
   try {
-    verify(token, process.env.TOKEN_GENERATOR_SECRET)
+    const userTokenInfo = verify(token, process.env.TOKEN_GENERATOR_SECRET)
+    const userTokenId = userTokenInfo.sub.toString()
+
+    const userAlreadyExists = await databaseClient.user.findFirst({
+      where: {
+        id: userTokenId
+      },
+      select: {
+        id: true
+      }
+    })
+
+    if (!userAlreadyExists) {
+      throw new Error('Token inválido')
+    }
+
+    request.userId = userAlreadyExists.id
 
     return next()
   } catch {
