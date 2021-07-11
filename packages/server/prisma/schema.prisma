@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
 }
 
 datasource db {
@@ -16,6 +17,7 @@ model User {
   current_experience Int           @default(0)
   password           String
   refresh_token      RefreshToken?
+  subscriptions      ChallengeSubscription[]
 
   @@map("users")
 }
@@ -27,4 +29,77 @@ model RefreshToken {
   userId    String
 
   @@map("refresh_tokens")
+}
+
+model Difficulty {
+  id         String      @id @default(uuid())
+  title      String
+  color      String
+  weight     Int
+  challenges Challenge[]
+
+  @@map("difficulties")
+}
+
+model Challenge {
+  id           String     @id @default(uuid())
+  title        String
+  description  String
+  iconURL      String
+  difficulty   Difficulty @relation(fields: [difficultyId], references: [id])
+  difficultyId String
+  questions     Question[]
+  subscriptions ChallengeSubscription[]
+
+  @@map("challenges")
+}
+
+model Question {
+  id          String          @id @default(uuid())
+  title       String
+  challenge   Challenge       @relation(fields: [challengeId], references: [id])
+  challengeId String
+  answers     Answer[]
+  orders      QuestionOrder[]
+
+  @@map("questions")
+}
+
+model Answer {
+  id         String          @id @default(uuid())
+  title      String
+  isCorrect  Boolean
+  question   Question        @relation(fields: [questionId], references: [id])
+  questionId String
+  orders     QuestionOrder[]
+
+  @@map("answers")
+}
+
+model ChallengeSubscription {
+  id              String          @id @default(uuid())
+  challenge       Challenge       @relation(fields: [challengeId], references: [id])
+  challengeId     String
+  user            User            @relation(fields: [userId], references: [id])
+  userId          String
+  currentPosition Int
+  finishedAt      DateTime?
+  startedAt       DateTime        @default(now())
+  questionOrder   QuestionOrder[]
+
+  @@map("challenge_subscriptions")
+}
+
+model QuestionOrder {
+  subscription   ChallengeSubscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
+  question       Question              @relation(fields: [questionId], references: [id])
+  questionId     String
+  position       Int
+  hasSkipped     Boolean
+  answer         Answer                @relation(fields: [answerId], references: [id])
+  answerId       String
+
+  @@id([subscriptionId, questionId, position])
+  @@map("question_orders")
 }
