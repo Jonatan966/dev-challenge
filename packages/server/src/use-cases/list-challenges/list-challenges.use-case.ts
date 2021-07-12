@@ -35,19 +35,17 @@ export class ListChallengesUseCase extends AppUseCase<
         },
         subscriptions: {
           where: {
-            userId,
-            questionOrder: {
-              every: {
-                NOT: {
-                  answer: undefined
-                }
-              }
-            }
+            userId
           },
           select: {
-            _count: {
+            questionOrder: {
               select: {
-                questionOrder: true
+                subscriptionId: true
+              },
+              where: {
+                answerId: {
+                  not: null
+                }
               }
             }
           }
@@ -62,7 +60,7 @@ export class ListChallengesUseCase extends AppUseCase<
         checkSubscription = {
           subscription: {
             answeredQuestionsCount:
-              challenge.subscriptions[0]._count.questionOrder
+              challenge.subscriptions[0].questionOrder.length
           }
         }
       }

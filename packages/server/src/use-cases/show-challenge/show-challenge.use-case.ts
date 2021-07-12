@@ -29,24 +29,12 @@ export class ShowChallengeUseCase extends AppUseCase<
         },
         subscriptions: {
           where: {
-            userId,
-            questionOrder: {
-              every: {
-                NOT: {
-                  answer: undefined
-                }
-              }
-            }
+            userId
           },
           select: {
             id: true,
             startedAt: true,
-            finishedAt: true,
-            _count: {
-              select: {
-                questionOrder: true
-              }
-            }
+            finishedAt: true
           }
         }
       }
@@ -64,12 +52,21 @@ export class ShowChallengeUseCase extends AppUseCase<
     if (findedChallenge.subscriptions.length) {
       const challengeSubscription = findedChallenge.subscriptions[0]
 
+      const answeredQuestionsCount = await databaseClient.questionOrder.count({
+        where: {
+          subscriptionId: challengeSubscription.id,
+          answerId: {
+            not: null
+          }
+        }
+      })
+
       mappedSubscription = {
         subscription: {
           id: challengeSubscription.id,
           startedAt: challengeSubscription.startedAt,
           finishedAt: challengeSubscription.finishedAt,
-          answeredQuestionsCount: challengeSubscription._count.questionOrder
+          answeredQuestionsCount
         }
       }
     }
