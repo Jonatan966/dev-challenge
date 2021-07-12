@@ -56,11 +56,14 @@ export class ListChallengesUseCase extends AppUseCase<
     })
 
     const mappedChallenges = challenges.map(challenge => {
-      let checkAnsweredQuestions = {}
+      let checkSubscription = {}
+
       if (challenge.subscriptions.length) {
-        checkAnsweredQuestions = {
-          answeredQuestionsCount:
-            challenge.subscriptions[0]._count.questionOrder
+        checkSubscription = {
+          subscription: {
+            answeredQuestionsCount:
+              challenge.subscriptions[0]._count.questionOrder
+          }
         }
       }
 
@@ -70,7 +73,7 @@ export class ListChallengesUseCase extends AppUseCase<
         difficultyId: challenge.difficultyId,
         iconURL: challenge.iconURL,
         questionsCount: challenge._count.questions,
-        ...checkAnsweredQuestions
+        ...checkSubscription
       }
     })
 

@@ -6,6 +6,7 @@ import { refreshTokenUserController } from './use-cases/refresh-token-user'
 import { listDifficultiesController } from './use-cases/list-difficulties'
 import { ensureAuthenticated } from './middlewares/ensure-authenticated.middleware'
 import { listChallengesController } from './use-cases/list-challenges'
+import { showChallengeController } from './use-cases/show-challenge'
 
 const routes = Router()
 
@@ -15,5 +16,10 @@ routes.post('/refresh-token', refreshTokenUserController.handle)
 
 routes.get('/difficulties', listDifficultiesController.handle)
 routes.get('/challenges', ensureAuthenticated, listChallengesController.handle)
+routes.get(
+  '/challenges/:id',
+  ensureAuthenticated,
+  showChallengeController.handle
+)
 
 export { routes }
