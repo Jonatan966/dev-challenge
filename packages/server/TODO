@@ -2,7 +2,7 @@ Principais funcionalidades:
   Challenges:
     ✔ Listagem de desafios @done(21-07-11 19:37)
     ✔ Visualizar detalhes de um desafio @done(21-07-11 21:46)
-    ☐ Entrar em um desafio (gerando uma ordem de questões)
+    ✔ Entrar em um desafio (gerando uma ordem de questões) @done(21-07-12 17:41)
     ☐ Finalizar um desafio
   Questions:
     ☐ Visualizar uma questão (liberar somente a questão atual do desafio em que o usuário se inscreveu)

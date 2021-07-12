@@ -7,6 +7,7 @@ import { listDifficultiesController } from './use-cases/list-difficulties'
 import { ensureAuthenticated } from './middlewares/ensure-authenticated.middleware'
 import { listChallengesController } from './use-cases/list-challenges'
 import { showChallengeController } from './use-cases/show-challenge'
+import { subscribeToChallengeController } from './use-cases/subscribe-to-challenge'
 
 const routes = Router()
 
@@ -15,11 +16,10 @@ routes.post('/login', authenticateUserController.handle)
 routes.post('/refresh-token', refreshTokenUserController.handle)
 
 routes.get('/difficulties', listDifficultiesController.handle)
-routes.get('/challenges', ensureAuthenticated, listChallengesController.handle)
-routes.get(
-  '/challenges/:id',
-  ensureAuthenticated,
-  showChallengeController.handle
-)
+
+routes.use(ensureAuthenticated)
+routes.get('/challenges', listChallengesController.handle)
+routes.get('/challenges/:id', showChallengeController.handle)
+routes.get('/challenges/:id/subscribe', subscribeToChallengeController.handle)
 
 export { routes }
