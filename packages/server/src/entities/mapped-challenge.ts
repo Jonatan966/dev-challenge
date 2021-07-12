@@ -13,5 +13,6 @@ export interface MappedChallenge {
     startedAt?: Date
     finishedAt?: Date
     answeredQuestionsCount: number
+    correctAnswersCount: number
   }
 }

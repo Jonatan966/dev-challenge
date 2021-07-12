@@ -61,12 +61,27 @@ export class ShowChallengeUseCase extends AppUseCase<
         }
       })
 
+      const correctAnswersCount = await databaseClient.questionOrder.count({
+        where: {
+          subscriptionId: challengeSubscription.id,
+          answerId: {
+            not: null
+          },
+          AND: {
+            answer: {
+              isCorrect: true
+            }
+          }
+        }
+      })
+
       mappedSubscription = {
         subscription: {
           id: challengeSubscription.id,
           startedAt: challengeSubscription.startedAt,
           finishedAt: challengeSubscription.finishedAt,
-          answeredQuestionsCount
+          answeredQuestionsCount,
+          correctAnswersCount
         }
       }
     }
