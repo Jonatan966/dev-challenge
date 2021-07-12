@@ -9,12 +9,12 @@ datasource db {
 }
 
 model User {
-  id                 String        @id @default(uuid())
+  id                 String                  @id @default(uuid())
   name               String
-  email              String        @unique
+  email              String                  @unique
   avatar_url         String?
-  current_level      Int           @default(1)
-  current_experience Int           @default(0)
+  current_level      Int                     @default(1)
+  current_experience Int                     @default(0)
   password           String
   refresh_token      RefreshToken?
   subscriptions      ChallengeSubscription[]
@@ -42,12 +42,12 @@ model Difficulty {
 }
 
 model Challenge {
-  id           String     @id @default(uuid())
-  title        String
-  description  String
-  iconURL      String
-  difficulty   Difficulty @relation(fields: [difficultyId], references: [id])
-  difficultyId String
+  id            String                  @id @default(uuid())
+  title         String
+  description   String
+  iconURL       String
+  difficulty    Difficulty              @relation(fields: [difficultyId], references: [id])
+  difficultyId  String
   questions     Question[]
   subscriptions ChallengeSubscription[]
 
@@ -96,9 +96,9 @@ model QuestionOrder {
   question       Question              @relation(fields: [questionId], references: [id])
   questionId     String
   position       Int
-  hasSkipped     Boolean
-  answer         Answer                @relation(fields: [answerId], references: [id])
-  answerId       String
+  hasSkipped     Boolean               @default(false)
+  answer         Answer?               @relation(fields: [answerId], references: [id])
+  answerId       String?
 
   @@id([subscriptionId, questionId, position])
   @@map("question_orders")
