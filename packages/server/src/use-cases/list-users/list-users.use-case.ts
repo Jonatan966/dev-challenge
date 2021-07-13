@@ -1,9 +1,10 @@
+import { User } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
 import { databaseClient } from '../../prisma/client'
-import { MappedUser } from './list-users.dto'
 
-export class ListUsersUseCase extends AppUseCase<unknown, MappedUser[]> {
-  public async execute(): Promise<MappedUser[]> {
+export class ListUsersUseCase extends AppUseCase<unknown, User[]> {
+  public async execute(): Promise<User[]> {
     const users = await databaseClient.user.findMany({
       orderBy: {
         current_level: 'asc'
@@ -13,17 +14,7 @@ export class ListUsersUseCase extends AppUseCase<unknown, MappedUser[]> {
         name: true,
         avatar_url: true,
         current_experience: true,
-        current_level: true,
-        subscriptions: {
-          select: {
-            id: true
-          },
-          where: {
-            finishedAt: {
-              not: null
-            }
-          }
-        }
+        current_level: true
       }
     })
 
@@ -36,8 +27,7 @@ export class ListUsersUseCase extends AppUseCase<unknown, MappedUser[]> {
         avatarUrl: user.avatar_url,
         currentExperience: user.current_experience,
         currentLevel: user.current_level,
-        experienceToNextLevel,
-        completedChallengesCount: user.subscriptions.length
+        experienceToNextLevel
       }
     })
 

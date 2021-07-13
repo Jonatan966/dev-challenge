@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
+import { User } from '@dev-challenge/entities'
 
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
-import { MappedUser } from './list-users.dto'
 
 export class ListUsersController extends AppController {
-  constructor(private listUsersUseCase: AppUseCase<unknown, MappedUser[]>) {
+  constructor(private listUsersUseCase: AppUseCase<unknown, User[]>) {
     super()
   }
 
