@@ -11,5 +11,5 @@ Principais funcionalidades:
       Além de somar a pontuação do usuário, com base no peso do desafio e no número de questões
     ✔ Pular uma questão @done(21-07-12 22:50)
   Leaderboard:
-    ☐ Listar o placar de líderes
+    ✔ Listar o placar de líderes @done(21-07-13 14:25)
     ☐ Visualizar as estatísticas detalhadas de um usuário
