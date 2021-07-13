@@ -1,4 +1,4 @@
-import { Difficulty } from '@prisma/client'
+import { Difficulty } from '@dev-challenge/entities'
 import { Request, Response } from 'express'
 
 import { AppController } from '../../contracts/app-controller'

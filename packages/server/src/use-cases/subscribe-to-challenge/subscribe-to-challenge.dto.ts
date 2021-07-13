@@ -1,4 +1,4 @@
-import { ChallengeSubscription } from '@prisma/client'
+import { Subscription } from '@dev-challenge/entities'
 
 export interface SubscribeToChallengeUseCaseDTO {
   userId: string
@@ -6,5 +6,5 @@ export interface SubscribeToChallengeUseCaseDTO {
 }
 
 export type MappedSubscription = {
-  subscription: Pick<ChallengeSubscription, 'id'>
+  subscription: Pick<Subscription, 'id'>
 }

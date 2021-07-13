@@ -1,19 +1,18 @@
+import { Question } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
 import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
-import {
-  MappedCurrentQuestion,
-  ShowCurrentQuestionUseCaseDTO
-} from './show-current-question.dto'
+import { ShowCurrentQuestionUseCaseDTO } from './show-current-question.dto'
 
 export class ShowCurrentQuestionUseCase extends AppUseCase<
   ShowCurrentQuestionUseCaseDTO,
-  MappedCurrentQuestion
+  Question
 > {
   public async execute({
     subscriptionId,
     userId
-  }: ShowCurrentQuestionUseCaseDTO): Promise<MappedCurrentQuestion> {
+  }: ShowCurrentQuestionUseCaseDTO): Promise<Question> {
     const subscriptionExists =
       await databaseClient.challengeSubscription.findFirst({
         where: {

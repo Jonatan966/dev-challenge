@@ -1,16 +1,17 @@
+import { Challenge } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
-import { MappedChallenge } from '../../entities/mapped-challenge'
 import { databaseClient } from '../../prisma/client'
 import { ListChallengesUseCaseDTO } from './list-challenges.dto'
 
 export class ListChallengesUseCase extends AppUseCase<
   ListChallengesUseCaseDTO,
-  MappedChallenge[]
+  Challenge[]
 > {
   public async execute({
     userId,
     difficultyId
-  }: ListChallengesUseCaseDTO): Promise<MappedChallenge[]> {
+  }: ListChallengesUseCaseDTO): Promise<Challenge[]> {
     const query = {
       where: undefined
     }

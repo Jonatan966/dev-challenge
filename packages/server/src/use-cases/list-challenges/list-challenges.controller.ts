@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
+import { Challenge } from '@dev-challenge/entities'
 
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
-import { MappedChallenge } from '../../entities/mapped-challenge'
 import { ListChallengesUseCaseDTO } from './list-challenges.dto'
 
 export class ListChallengesController extends AppController {
   constructor(
     private listChallengesUseCase: AppUseCase<
       ListChallengesUseCaseDTO,
-      MappedChallenge[]
+      Challenge[]
     >
   ) {
     super()

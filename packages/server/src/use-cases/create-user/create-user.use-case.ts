@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { User } from '@dev-challenge/entities'
 import { hash } from 'bcryptjs'
 
 import { databaseClient } from '../../prisma/client'
@@ -33,6 +33,15 @@ export class CreateUserUseCase extends AppUseCase<CreateUserDTO, User> {
 
     delete user.password
 
-    return user
+    const mappedUser: User = {
+      id: user.id,
+      avatarUrl: user.avatar_url,
+      name: user.name,
+      currentExperience: user.current_experience,
+      currentLevel: user.current_level,
+      experienceToNextLevel: 0
+    }
+
+    return mappedUser
   }
 }

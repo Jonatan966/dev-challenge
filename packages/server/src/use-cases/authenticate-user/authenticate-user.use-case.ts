@@ -1,4 +1,5 @@
 import { compare } from 'bcryptjs'
+import { AuthObject } from '@dev-challenge/entities'
 
 import { AppUseCase } from '../../contracts/app-use-case'
 import { AuthenticateUserDTO } from './authenticate-user.dto'
@@ -6,7 +7,6 @@ import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
 import { GenerateTokenProvider } from '../../providers/generate-token.provider'
 import { GenerateRefreshTokenProvider } from '../../providers/generate-refresh-token.provider'
-import { AuthObject } from '../../contracts/auth-object'
 
 export class AuthenticateUserUseCase extends AppUseCase<
   AuthenticateUserDTO,

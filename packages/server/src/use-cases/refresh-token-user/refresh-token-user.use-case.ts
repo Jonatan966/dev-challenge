@@ -1,5 +1,6 @@
+import { AuthObject } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
-import { AuthObject } from '../../contracts/auth-object'
 import { databaseClient } from '../../prisma/client'
 import { GenerateRefreshTokenProvider } from '../../providers/generate-refresh-token.provider'
 import { GenerateTokenProvider } from '../../providers/generate-token.provider'

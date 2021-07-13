@@ -1,17 +1,18 @@
+import { Challenge } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
-import { MappedChallenge } from '../../entities/mapped-challenge'
 import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
 import { ShowChallengeUseCaseDTO } from './show-challenge.dto'
 
 export class ShowChallengeUseCase extends AppUseCase<
   ShowChallengeUseCaseDTO,
-  MappedChallenge
+  Challenge
 > {
   public async execute({
     userId,
     challengeId
-  }: ShowChallengeUseCaseDTO): Promise<MappedChallenge> {
+  }: ShowChallengeUseCaseDTO): Promise<Challenge> {
     const findedChallenge = await databaseClient.challenge.findFirst({
       where: {
         id: challengeId
@@ -86,7 +87,7 @@ export class ShowChallengeUseCase extends AppUseCase<
       }
     }
 
-    const mappedChallenge: MappedChallenge = {
+    const mappedChallenge: Challenge = {
       id: findedChallenge.id,
       title: findedChallenge.title,
       description: findedChallenge.description,

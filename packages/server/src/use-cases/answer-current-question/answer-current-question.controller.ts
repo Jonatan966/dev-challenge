@@ -1,11 +1,9 @@
 import { Request, Response } from 'express'
+import { AnswerStatus } from '@dev-challenge/entities'
 
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
-import {
-  AnswerCurrentQuestionUseCaseDTO,
-  AnswerStatus
-} from './answer-current-question.dto'
+import { AnswerCurrentQuestionUseCaseDTO } from './answer-current-question.dto'
 
 export class AnswerCurrentQuestionController extends AppController {
   constructor(

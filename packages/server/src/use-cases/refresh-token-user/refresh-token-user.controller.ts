@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
+import { AuthObject } from '@dev-challenge/entities'
 
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
-import { AuthObject } from '../../contracts/auth-object'
 import { AppError } from '../../utils/error-handler'
 import { RefreshTokenUserDTO } from './refresh-token-user.dto'
 

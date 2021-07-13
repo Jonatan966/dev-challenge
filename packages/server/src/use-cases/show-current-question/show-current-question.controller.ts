@@ -1,16 +1,15 @@
 import { Request, Response } from 'express'
+import { Question } from '@dev-challenge/entities'
+
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
-import {
-  MappedCurrentQuestion,
-  ShowCurrentQuestionUseCaseDTO
-} from './show-current-question.dto'
+import { ShowCurrentQuestionUseCaseDTO } from './show-current-question.dto'
 
 export class ShowCurrentQuestionController extends AppController {
   constructor(
     private showCurrentQuestionUseCase: AppUseCase<
       ShowCurrentQuestionUseCaseDTO,
-      MappedCurrentQuestion
+      Question
     >
   ) {
     super()

@@ -1,10 +1,9 @@
+import { AnswerStatus } from '@dev-challenge/entities'
+
 import { AppUseCase } from '../../contracts/app-use-case'
 import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
-import {
-  AnswerCurrentQuestionUseCaseDTO,
-  AnswerStatus
-} from './answer-current-question.dto'
+import { AnswerCurrentQuestionUseCaseDTO } from './answer-current-question.dto'
 
 interface UserGainExperienceProps {
   userId: string

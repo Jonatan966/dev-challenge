@@ -1,4 +1,4 @@
-import { Difficulty } from '@prisma/client'
+import { Difficulty } from '@dev-challenge/entities'
 
 import { AppUseCase } from '../../contracts/app-use-case'
 import { databaseClient } from '../../prisma/client'
