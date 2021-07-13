@@ -141,7 +141,8 @@ export class AnswerCurrentQuestionUseCase extends AppUseCase<
         data: {
           current_level: {
             increment: 1
-          }
+          },
+          current_experience: 0
         }
       })
 
