@@ -12,6 +12,7 @@ import { showCurrentQuestionController } from './use-cases/show-current-question
 import { answerCurrentQuestionController } from './use-cases/answer-current-question'
 import { skipQuestionController } from './use-cases/skip-question'
 import { listUsersController } from './use-cases/list-users'
+import { showUserController } from './use-cases/show-user'
 
 const routes = Router()
 
@@ -19,6 +20,9 @@ routes
   .route('/users')
   .post(createUserController.handle)
   .get(listUsersController.handle)
+
+routes.get('/users/me', ensureAuthenticated, showUserController.handle)
+routes.get('/users/:id', showUserController.handle)
 
 routes.post('/login', authenticateUserController.handle)
 routes.post('/refresh-token', refreshTokenUserController.handle)
