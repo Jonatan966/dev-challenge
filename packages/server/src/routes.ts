@@ -10,6 +10,7 @@ import { showChallengeController } from './use-cases/show-challenge'
 import { subscribeToChallengeController } from './use-cases/subscribe-to-challenge'
 import { showCurrentQuestionController } from './use-cases/show-current-question'
 import { answerCurrentQuestionController } from './use-cases/answer-current-question'
+import { skipQuestionController } from './use-cases/skip-question'
 
 const routes = Router()
 
@@ -32,5 +33,6 @@ routes.post(
   '/subscriptions/:id/current-question',
   answerCurrentQuestionController.handle
 )
+routes.get('/subscriptions/:id/skip-question', skipQuestionController.handle)
 
 export { routes }
