@@ -10,7 +10,9 @@
     ]
   },
   "scripts": {
-    "server": "yarn workspace @dev-challenge/server"
+    "server": "yarn workspace @dev-challenge/server",
+    "start": "yarn server start",
+    "build": "yarn server build"
   },
   "license": "MIT",
   "devDependencies": {
