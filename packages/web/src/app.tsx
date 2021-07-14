@@ -1,5 +1,10 @@
-import { ReactNode } from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
+import { HomePage } from './pages/home'
 
-export function App(): ReactNode {
-  return <h1>Bom dia</h1>
+export function App(): JSX.Element {
+  return (
+    <ChakraProvider>
+      <HomePage />
+    </ChakraProvider>
+  )
 }
