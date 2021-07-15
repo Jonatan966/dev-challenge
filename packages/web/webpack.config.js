@@ -10,13 +10,15 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
+    historyApiFallback: true,
     hot: true
   },
   plugins: [
