@@ -38,13 +38,17 @@ export class SkipQuestionUseCase extends AppUseCase<SkipQuestionUseCaseDTO> {
     if (!currentSubscription) {
       throw new AppError({
         statusCode: 400,
-        message: 'Inscrição não encontrada'
+        errorType: 'input',
+        fields: {
+          subscriptionId: 'Inscrição não encontrada'
+        }
       })
     }
 
     if (currentSubscription.finishedAt) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Esse desafio já foi finalizado'
       })
     }
@@ -52,6 +56,7 @@ export class SkipQuestionUseCase extends AppUseCase<SkipQuestionUseCaseDTO> {
     if (currentSubscription.questionOrder.length <= 1) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Não é possível pular essa questão'
       })
     }
@@ -67,6 +72,7 @@ export class SkipQuestionUseCase extends AppUseCase<SkipQuestionUseCaseDTO> {
     if (currentQuestion.hasSkipped) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Não é possível pular essa questão novamente'
       })
     }
@@ -102,6 +108,7 @@ export class SkipQuestionUseCase extends AppUseCase<SkipQuestionUseCaseDTO> {
     } catch {
       throw new AppError({
         statusCode: 500,
+        errorType: 'internal',
         message: 'Não foi possível pular essa questão'
       })
     }

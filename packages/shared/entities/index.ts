@@ -1,5 +1,6 @@
 import { Answer } from './src/answer'
 import { AnswerStatus } from './src/answer-status'
+import { AppErrorConfig } from './src/app-error'
 import { AuthObject } from './src/auth-object'
 import { Challenge } from './src/challenge'
 import { Difficulty } from './src/difficulty'
@@ -15,5 +16,6 @@ export {
   Difficulty,
   Subscription,
   Question,
-  Answer
+  Answer,
+  AppErrorConfig
 }

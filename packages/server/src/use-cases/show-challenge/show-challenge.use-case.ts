@@ -43,8 +43,11 @@ export class ShowChallengeUseCase extends AppUseCase<
 
     if (!findedChallenge) {
       throw new AppError({
-        statusCode: 400,
-        message: 'Desafio não encontrado'
+        errorType: 'input',
+        fields: {
+          challengeId: 'Desafio não encontrado'
+        },
+        statusCode: 400
       })
     }
 

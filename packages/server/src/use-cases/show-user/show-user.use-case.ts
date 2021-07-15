@@ -34,7 +34,10 @@ export class ShowUserUseCase extends AppUseCase<ShowUserUseCaseDTO, User> {
     if (!findedUser) {
       throw new AppError({
         statusCode: 400,
-        message: 'Este usuário não existe'
+        errorType: 'input',
+        fields: {
+          userId: 'Este usuário não existe'
+        }
       })
     }
 

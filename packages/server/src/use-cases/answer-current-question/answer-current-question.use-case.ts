@@ -28,6 +28,7 @@ export class AnswerCurrentQuestionUseCase extends AppUseCase<
     if (!subscriptionExists) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Inscrição não encontrada'
       })
     }
@@ -35,6 +36,7 @@ export class AnswerCurrentQuestionUseCase extends AppUseCase<
     if (subscriptionExists.finishedAt) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Esse desafio já foi finalizado'
       })
     }
@@ -48,13 +50,17 @@ export class AnswerCurrentQuestionUseCase extends AppUseCase<
     if (!currentQuestion.question.answers.length) {
       throw new AppError({
         statusCode: 400,
-        message: 'Resposta não encontrada'
+        errorType: 'input',
+        fields: {
+          answerId: 'Resposta não encontrada'
+        }
       })
     }
 
     if (currentQuestion.answerId) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Pergunta já respondida'
       })
     }

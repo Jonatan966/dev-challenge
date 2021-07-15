@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { AuthObject } from '@dev-challenge/entities'
+import { AuthenticateUserDTO } from '@dev-challenge/dto'
 
 import { AppController } from '../../contracts/app-controller'
-import { AuthenticateUserDTO } from './authenticate-user.dto'
 import { AppUseCase } from '../../contracts/app-use-case'
 
 export class AuthenticateUserController extends AppController<AuthenticateUserDTO> {

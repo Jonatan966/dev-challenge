@@ -14,14 +14,20 @@ export async function ensureAuthenticated(
   if (!authToken) {
     throw new AppError({
       statusCode: 401,
-      message: 'Token não informado'
+      errorType: 'input',
+      fields: {
+        authorization: 'Token não informado'
+      }
     })
   }
 
   if (!authToken.match(/Bearer [^\s]/)) {
     throw new AppError({
       statusCode: 401,
-      message: 'Token inválido'
+      errorType: 'input',
+      fields: {
+        authorization: 'Token inválido'
+      }
     })
   }
 
@@ -50,7 +56,10 @@ export async function ensureAuthenticated(
   } catch {
     throw new AppError({
       statusCode: 401,
-      message: 'Token inválido'
+      errorType: 'input',
+      fields: {
+        authorization: 'Token inválido'
+      }
     })
   }
 }

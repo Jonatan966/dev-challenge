@@ -1,9 +1,9 @@
 import { User } from '@dev-challenge/entities'
 import { hash } from 'bcryptjs'
+import { CreateUserDTO } from '@dev-challenge/dto'
 
 import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
-import { CreateUserDTO } from './create-user.dto'
 import { AppUseCase } from '../../contracts/app-use-case'
 
 export class CreateUserUseCase extends AppUseCase<CreateUserDTO, User> {
@@ -16,7 +16,10 @@ export class CreateUserUseCase extends AppUseCase<CreateUserDTO, User> {
 
     if (userAlreadyExists) {
       throw new AppError({
-        message: 'Já existe um usuário com este e-mail',
+        errorType: 'input',
+        fields: {
+          email: 'Já existe um usuário com este e-mail'
+        },
         statusCode: 400
       })
     }

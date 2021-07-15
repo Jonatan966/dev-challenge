@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { AuthObject } from '@dev-challenge/entities'
+import { RefreshTokenUserDTO } from '@dev-challenge/dto'
 
 import { AppController } from '../../contracts/app-controller'
 import { AppUseCase } from '../../contracts/app-use-case'
 import { AppError } from '../../utils/error-handler'
-import { RefreshTokenUserDTO } from './refresh-token-user.dto'
 
 export class RefreshTokenUserController extends AppController<RefreshTokenUserDTO> {
   constructor(
@@ -21,7 +21,10 @@ export class RefreshTokenUserController extends AppController<RefreshTokenUserDT
 
     if (!refreshToken) {
       throw new AppError({
-        message: 'Informe um refresh token',
+        errorType: 'input',
+        fields: {
+          refreshToken: 'Informe um refresh token'
+        },
         statusCode: 400
       })
     }

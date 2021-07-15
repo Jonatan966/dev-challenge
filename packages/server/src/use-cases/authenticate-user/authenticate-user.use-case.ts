@@ -1,8 +1,8 @@
 import { compare } from 'bcryptjs'
 import { AuthObject } from '@dev-challenge/entities'
+import { AuthenticateUserDTO } from '@dev-challenge/dto'
 
 import { AppUseCase } from '../../contracts/app-use-case'
-import { AuthenticateUserDTO } from './authenticate-user.dto'
 import { databaseClient } from '../../prisma/client'
 import { AppError } from '../../utils/error-handler'
 import { GenerateTokenProvider } from '../../providers/generate-token.provider'
@@ -21,7 +21,10 @@ export class AuthenticateUserUseCase extends AppUseCase<
 
     if (!userAlreadyExists) {
       throw new AppError({
-        message: 'Não existe um usuário com este e-mail',
+        errorType: 'input',
+        fields: {
+          email: 'Não existe um usuário com este e-mail'
+        },
         statusCode: 400
       })
     }
@@ -30,7 +33,10 @@ export class AuthenticateUserUseCase extends AppUseCase<
 
     if (!passwordMatch) {
       throw new AppError({
-        message: 'Senha incorreta',
+        errorType: 'input',
+        fields: {
+          password: 'Senha incorreta'
+        },
         statusCode: 400
       })
     }

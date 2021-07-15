@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { User } from '@dev-challenge/entities'
+import { CreateUserDTO } from '@dev-challenge/dto'
 
 import { AppController } from '../../contracts/app-controller'
-import { CreateUserDTO } from './create-user.dto'
 import { AppUseCase } from '../../contracts/app-use-case'
 
 export class CreateUserController extends AppController<CreateUserDTO> {

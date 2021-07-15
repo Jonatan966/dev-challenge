@@ -28,13 +28,17 @@ export class ShowCurrentQuestionUseCase extends AppUseCase<
     if (!subscriptionExists) {
       throw new AppError({
         statusCode: 400,
-        message: 'Inscrição não encontrada'
+        errorType: 'input',
+        fields: {
+          subscriptionId: 'Inscrição não encontrada'
+        }
       })
     }
 
     if (subscriptionExists.finishedAt) {
       throw new AppError({
         statusCode: 400,
+        errorType: 'general',
         message: 'Esse desafio já foi finalizado'
       })
     }

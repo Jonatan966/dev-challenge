@@ -40,14 +40,20 @@ export class SubscribeToChallengeUseCase extends AppUseCase<
     if (!targetChallenge) {
       throw new AppError({
         statusCode: 400,
-        message: 'Desafio não encontrado'
+        errorType: 'input',
+        fields: {
+          challengeId: 'Desafio não encontrado'
+        }
       })
     }
 
     if (targetChallenge.subscriptions.length) {
       throw new AppError({
         statusCode: 400,
-        message: 'Você já está inscrito(a) nesse desafio'
+        errorType: 'input',
+        fields: {
+          challengeId: 'Você já está inscrito(a) nesse desafio'
+        }
       })
     }
 
@@ -82,6 +88,7 @@ export class SubscribeToChallengeUseCase extends AppUseCase<
       console.log(e)
       throw new AppError({
         statusCode: 500,
+        errorType: 'internal',
         message: 'Não foi possível se inscrever nesse desafio'
       })
     }
