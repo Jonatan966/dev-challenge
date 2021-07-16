@@ -30,14 +30,21 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(j|t)sx$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             plugins: [
               isDevelopment && require.resolve('react-refresh/babel')
-            ].filter(Boolean)
+            ].filter(Boolean),
+            presets: [
+              "@babel/preset-env",
+              ["@babel/preset-react", {
+                "runtime": "automatic"
+             }],
+              "@babel/preset-typescript",
+            ]
           }
         }
       },
