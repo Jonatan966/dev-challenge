@@ -11,6 +11,7 @@
   },
   "scripts": {
     "server": "yarn workspace @dev-challenge/server",
+    "web": "yarn workspace @dev-challenge/web",
     "start": "yarn server start",
     "build": "yarn server build"
   },
