@@ -10,6 +10,12 @@ const api = axios.create({
 })
 
 function defineAxiosInterceptor(): void {
+  api.interceptors.request.use(request => {
+    request.headers.authorization = 'Bearer ' + getCookie('devchallenge-token')
+
+    return request
+  })
+
   api.interceptors.response.use(
     response => {
       return response
@@ -43,13 +49,13 @@ function defineAxiosInterceptor(): void {
 
           const res = axios
             .post<AuthObject>(`${API_URL}/refresh-token`, {
-              refreshToken
+              refreshToken: refreshToken || ''
             })
             .then(res => {
               setAuthCookies(res.data)
               originalRequest.headers.authorization = `Bearer ${res.data.token}`
 
-              axios(originalRequest)
+              return axios(originalRequest)
             })
 
           resolve(res)
