@@ -2,6 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import { AppLogoHeader } from './components/app-logo-header'
+import { AuthVerificationRoute } from './components/private-route'
 import { AuthProvider } from './contexts/auth-context'
 import { ChallengeDetailsPage } from './pages/challenge-details'
 import { ChallengeQuestionPage } from './pages/challenge-question'
@@ -16,28 +17,44 @@ defineAxiosInterceptor()
 export function App(): JSX.Element {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <ChakraProvider>
+      <ChakraProvider>
+        <AuthProvider>
           <Switch>
             <Route path="/auth">
               <AppLogoHeader />
               <Switch>
-                <Route exact path="/auth" component={LoginPage} />
+                <AuthVerificationRoute
+                  exact
+                  path="/auth"
+                  component={LoginPage}
+                  redirectAfterVerified="/challenges"
+                />
                 <Route exact path="/auth/register" component={RegisterPage} />
                 <Redirect from="/auth/*" to="/404" />
               </Switch>
             </Route>
 
-            <Route exact path="/challenges" component={HomePage} />
-            <Route
+            <AuthVerificationRoute
+              exact
+              path="/challenges"
+              component={HomePage}
+              isPrivate
+            />
+            <AuthVerificationRoute
               exact
               path="/challenges/:id"
               component={ChallengeDetailsPage}
+              isPrivate
             />
-            <Route exact path="/challenge" component={ChallengeQuestionPage} />
+            <AuthVerificationRoute
+              exact
+              path="/challenge"
+              component={ChallengeQuestionPage}
+              isPrivate
+            />
           </Switch>
-        </ChakraProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ChakraProvider>
     </BrowserRouter>
   )
 }
