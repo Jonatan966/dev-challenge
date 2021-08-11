@@ -1,19 +1,22 @@
 import { WrapItem } from '@chakra-ui/react'
+import { Difficulty } from '@dev-challenge/entities'
 
 interface DifficultyPillProps {
-  title: string
+  difficulty: Difficulty
 }
 
-export function DifficultyPill({ title }: DifficultyPillProps): JSX.Element {
+export function DifficultyPill({
+  difficulty
+}: DifficultyPillProps): JSX.Element {
   return (
     <WrapItem
-      bg="green.100"
+      bg={`${difficulty.color}.100`}
       pl="4"
       pr="4"
       borderRadius="20"
       border="2px"
-      borderColor="green.300"
-      color="green.800"
+      borderColor={`${difficulty.color}.300`}
+      color={`${difficulty.color}.800`}
       fontWeight="bold"
       flex="1"
       justifyContent="center"
@@ -23,7 +26,7 @@ export function DifficultyPill({ title }: DifficultyPillProps): JSX.Element {
         filter: 'brightness(.85)'
       }}
     >
-      {title}
+      {difficulty.title}
     </WrapItem>
   )
 }
