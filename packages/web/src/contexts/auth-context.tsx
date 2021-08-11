@@ -15,6 +15,7 @@ import { AppErrorConfig, AuthObject, User } from '@dev-challenge/entities'
 import { CreateUserDTO } from '@dev-challenge/dto'
 
 import { api } from '../services/api'
+import { useHistory } from 'react-router-dom'
 
 interface AuthContextProps {
   user: User
@@ -43,6 +44,7 @@ export function setAuthCookies({ token, refreshToken }: AuthObject): void {
 export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [user, setUser] = useState<User>()
   const [isLoading, setIsLoading] = useState(true)
+  const router = useHistory()
 
   async function getUserInformation(token: string) {
     const { data: userInformation } = await api.get<User>('/users/me', {
@@ -107,6 +109,9 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     getUserInformation(token)
       .then(userInfo => {
         setUser(userInfo)
+      })
+      .catch(() => {
+        router.replace('/auth')
       })
       .finally(() => setIsLoading(false))
   }, [])
