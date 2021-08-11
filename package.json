@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.3.5",
-    "@dev-challenge/eslint-config": "*"
+    "@dev-challenge/eslint-config": "*",
+    "typescript": "^4.3.5"
   }
 }
