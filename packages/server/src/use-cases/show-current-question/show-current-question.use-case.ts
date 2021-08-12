@@ -65,6 +65,14 @@ export class ShowCurrentQuestionUseCase extends AppUseCase<
       }
     })
 
+    if (!currentQuestion) {
+      throw new AppError({
+        statusCode: 500,
+        errorType: 'internal',
+        message: 'Não há questões nesse desafio'
+      })
+    }
+
     return {
       ...currentQuestion.question,
       hasSkipped: currentQuestion.hasSkipped
