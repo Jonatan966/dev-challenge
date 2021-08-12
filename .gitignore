@@ -3,5 +3,3 @@ dist
 yarn-error.log
 .env
 .idea
-.yarn/cache
-.yarn/install-state.gz
