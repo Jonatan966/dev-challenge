@@ -19,5 +19,6 @@
   "devDependencies": {
     "@dev-challenge/eslint-config": "*",
     "typescript": "^4.3.5"
-  }
+  },
+  "packageManager": "yarn@3.0.1"
 }
