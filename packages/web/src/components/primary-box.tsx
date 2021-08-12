@@ -1,7 +1,7 @@
-import { As, Box, ChakraProps } from '@chakra-ui/react'
+import { As, Box, BoxProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-interface PrimaryBoxProps extends ChakraProps {
+interface PrimaryBoxProps extends BoxProps {
   children?: ReactNode
   as?: As
 }
