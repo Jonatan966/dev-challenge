@@ -30,6 +30,8 @@ interface ChallengeContextProps {
   answerCurrentQuestion(): Promise<AnswerStatus>
   subscribeToCurrentChallenge(): Promise<false | ShortSubscription>
   updateChallengeSubscription(subscriptionObject: ShortSubscription): void
+  selectAnswer(answerId: string): void
+  markCorrectAnswerStatus(answerId: string, isCorrect: boolean): void
 }
 
 type UseChallenge = () => ChallengeContextProps
@@ -110,6 +112,25 @@ export function ChallengeProvider({
     }))
   }
 
+  function selectAnswer(answerId: string) {
+    setCurrentQuestion(question => ({
+      ...question,
+      answers: question.answers.map(answer => ({
+        ...answer,
+        isChecked: answer.id === answerId
+      }))
+    }))
+  }
+
+  function markCorrectAnswerStatus(answerId: string, isCorrect: boolean) {
+    setCurrentQuestion(question => ({
+      ...question,
+      answers: question.answers.map(answer =>
+        answer.id !== answerId ? answer : { ...answer, isCorrect }
+      )
+    }))
+  }
+
   async function answerCurrentQuestion(): Promise<AnswerStatus> {
     if (!currentChallenge || !currentChallenge.subscription) return
 
@@ -158,7 +179,9 @@ export function ChallengeProvider({
         getCurrentQuestion,
         answerCurrentQuestion,
         subscribeToCurrentChallenge,
-        updateChallengeSubscription
+        updateChallengeSubscription,
+        selectAnswer,
+        markCorrectAnswerStatus
       }}
     >
       {children}
