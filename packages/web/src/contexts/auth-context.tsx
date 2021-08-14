@@ -16,10 +16,11 @@ import { CreateUserDTO } from '@dev-challenge/dto'
 
 import { api } from '../services/api'
 import { useHistory } from 'react-router-dom'
+import { useLoading } from './loading-context'
 
 interface AuthContextProps {
   user: User
-  isLoading: boolean
+  isLoadingAuth: boolean
   logIn: (email: string, password: string) => Promise<AppErrorConfig | null>
   logOut: () => Promise<void>
   registerUser: (data: CreateUserDTO) => Promise<AppErrorConfig | null>
@@ -36,15 +37,17 @@ export function setAuthCookies({ token, refreshToken }: AuthObject): void {
     path: '/'
   })
   setCookie('devchallenge-refreshtoken', refreshToken.id, {
-    expires: new Date(refreshToken.expiresIn * 1000),
+    expires: new Date(refreshToken.expiresIn * 1500),
     path: '/'
   })
 }
 
 export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [user, setUser] = useState<User>()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingAuth, setIsLoading] = useState(true)
+
   const router = useHistory()
+  const { setLoadingState } = useLoading()
 
   async function getUserInformation(token: string) {
     const { data: userInformation } = await api.get<User>('/users/me', {
@@ -116,17 +119,21 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       .finally(() => setIsLoading(false))
   }, [])
 
+  useEffect(() => {
+    setLoadingState(isLoadingAuth)
+  }, [isLoadingAuth])
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        isLoading,
+        isLoadingAuth,
         logIn,
         logOut,
         registerUser
       }}
     >
-      {children}
+      {isLoadingAuth ? <></> : children}
     </AuthContext.Provider>
   )
 }
