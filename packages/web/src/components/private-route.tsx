@@ -1,7 +1,6 @@
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 
 import { useAuth } from '../contexts/auth-context'
-import { CenteredSpinner } from './centered-spinner'
 
 interface AuthVerificationRouteProps extends RouteProps {
   isPrivate?: boolean
@@ -13,11 +12,7 @@ export function AuthVerificationRoute({
   redirectAfterVerified,
   ...routeProps
 }: AuthVerificationRouteProps): JSX.Element {
-  const { isLoading, user } = useAuth()
-
-  if (isLoading) {
-    return <CenteredSpinner />
-  }
+  const { user } = useAuth()
 
   if (!user && isPrivate) {
     return <Redirect to="/auth" />
