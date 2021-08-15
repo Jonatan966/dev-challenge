@@ -3,7 +3,7 @@ import { get as getCookie } from 'js-cookie'
 import { AuthObject } from '@dev-challenge/entities'
 import { setAuthCookies } from '../contexts/auth-context'
 
-const API_URL = 'http://localhost:3333'
+const API_URL = 'https://jonatan-dev-challenge.herokuapp.com'
 
 const api = axios.create({
   baseURL: API_URL
