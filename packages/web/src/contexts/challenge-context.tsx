@@ -8,7 +8,7 @@ import {
   Challenge,
   Question,
   Subscription
-} from '../../../shared/entities'
+} from '@dev-challenge/entities'
 import { api } from '../services/api'
 
 type ShortSubscription = Pick<Subscription, 'id' | 'answeredQuestionsCount'>
