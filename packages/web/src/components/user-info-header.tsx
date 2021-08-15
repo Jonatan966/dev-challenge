@@ -4,9 +4,18 @@ import { PrimaryHeader } from './primary-header'
 import { ProgressInfoCard } from './progress-info-card'
 
 import { useAuth } from '../contexts/auth-context'
+import { useEffect, useState } from 'react'
 
 export function UserInfoHeader(): JSX.Element {
-  const { user } = useAuth()
+  const { user, isLoadingAuth, refreshUserInformation } = useAuth()
+
+  const [isRefreshingUser, setIsRefreshingUser] = useState(false)
+
+  useEffect(() => {
+    if (isLoadingAuth) return
+    setIsRefreshingUser(true)
+    refreshUserInformation().then(() => setIsRefreshingUser(false))
+  }, [])
 
   return (
     // top={0} zIndex={99} background="white"
@@ -31,6 +40,7 @@ export function UserInfoHeader(): JSX.Element {
         marginLeft="5"
         marginRight="5"
         translateY="-20%"
+        isLoading={isRefreshingUser}
       >
         Faltam <strong>{user.experienceToNextLevel}xp</strong> para o{' '}
         <strong>Nível {user.currentLevel + 1}</strong>

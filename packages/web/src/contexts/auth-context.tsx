@@ -24,6 +24,7 @@ interface AuthContextProps {
   logIn: (email: string, password: string) => Promise<AppErrorConfig | null>
   logOut: () => Promise<void>
   registerUser: (data: CreateUserDTO) => Promise<AppErrorConfig | null>
+  refreshUserInformation(): Promise<void>
 }
 
 interface AuthProviderProps {
@@ -49,12 +50,8 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const router = useHistory()
   const { setLoadingState } = useLoading()
 
-  async function getUserInformation(token: string) {
-    const { data: userInformation } = await api.get<User>('/users/me', {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+  async function getUserInformation() {
+    const { data: userInformation } = await api.get<User>('/users/me')
 
     return userInformation
   }
@@ -68,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
       setAuthCookies(accessToken)
 
-      const userInformation = await getUserInformation(accessToken.token)
+      const userInformation = await getUserInformation()
 
       setUser(userInformation)
     } catch (e) {
@@ -76,6 +73,12 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
       return error.response?.data
     }
+  }
+
+  async function refreshUserInformation() {
+    const userInformation = await getUserInformation()
+
+    setUser(userInformation)
   }
 
   async function registerUser({ name, email, password }: CreateUserDTO) {
@@ -109,7 +112,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       return
     }
 
-    getUserInformation(token)
+    getUserInformation()
       .then(userInfo => {
         setUser(userInfo)
       })
@@ -130,7 +133,8 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         isLoadingAuth,
         logIn,
         logOut,
-        registerUser
+        registerUser,
+        refreshUserInformation
       }}
     >
       {isLoadingAuth ? <></> : children}
