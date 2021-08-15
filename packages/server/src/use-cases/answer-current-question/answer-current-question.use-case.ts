@@ -115,6 +115,7 @@ export class AnswerCurrentQuestionUseCase extends AppUseCase<
 
     experienceGained *= difficultyWeight
     experienceGained /= questionsCount
+    experienceGained = Math.floor(experienceGained)
 
     const currentUser = await databaseClient.user.update({
       where: {
