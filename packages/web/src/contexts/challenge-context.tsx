@@ -32,6 +32,7 @@ interface ChallengeContextProps {
   updateChallengeSubscription(subscriptionObject: ShortSubscription): void
   selectAnswer(answerId: string): void
   markCorrectAnswerStatus(answerId: string, isCorrect: boolean): void
+  skipCurrentQuestion(): Promise<void>
 }
 
 type UseChallenge = () => ChallengeContextProps
@@ -170,6 +171,15 @@ export function ChallengeProvider({
     }
   }
 
+  async function skipCurrentQuestion() {
+    if (!currentChallenge || !currentChallenge.subscription) return
+
+    await api.get(
+      `/subscriptions/${currentChallenge.subscription.id}/skip-question`
+    )
+    await getCurrentQuestion()
+  }
+
   return (
     <ChallengeContext.Provider
       value={{
@@ -186,7 +196,8 @@ export function ChallengeProvider({
         subscribeToCurrentChallenge,
         updateChallengeSubscription,
         selectAnswer,
-        markCorrectAnswerStatus
+        markCorrectAnswerStatus,
+        skipCurrentQuestion
       }}
     >
       {children}
