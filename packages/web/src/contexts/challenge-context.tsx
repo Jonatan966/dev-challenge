@@ -27,7 +27,7 @@ interface ChallengeContextProps {
 
   getChallengeInformations(challengeId: string): Promise<void>
   getCurrentQuestion(subscriptionId?: string): Promise<boolean>
-  answerCurrentQuestion(): Promise<AnswerStatus>
+  answerCurrentQuestion(answerId: string): Promise<AnswerStatus>
   subscribeToCurrentChallenge(): Promise<false | ShortSubscription>
   updateChallengeSubscription(subscriptionObject: ShortSubscription): void
   selectAnswer(answerId: string): void
@@ -131,13 +131,18 @@ export function ChallengeProvider({
     }))
   }
 
-  async function answerCurrentQuestion(): Promise<AnswerStatus> {
+  async function answerCurrentQuestion(
+    answerId: string
+  ): Promise<AnswerStatus> {
     if (!currentChallenge || !currentChallenge.subscription) return
 
     setIsLoadingAnswer(true)
 
     const { data: answerStatus } = await api.post<AnswerStatus>(
-      `/subscriptions/${currentChallenge.subscription.id}/current-question`
+      `/subscriptions/${currentChallenge.subscription.id}/current-question`,
+      {
+        answerId
+      }
     )
 
     setIsLoadingAnswer(false)
