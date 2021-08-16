@@ -16,9 +16,11 @@ export function LandingPage(): JSX.Element {
         zIndex={9999}
       >
         <Image src="/icons/logo.png" mr="auto" width="28" />
-        <Button variant="link" to="/auth/register" color="HighlightText">
-          Cadastro
-        </Button>
+        <Link to="/auth/register">
+          <Button variant="link" color="HighlightText">
+            Cadastro
+          </Button>
+        </Link>
         <Link to="/auth">
           <Button colorScheme="green">Login</Button>
         </Link>

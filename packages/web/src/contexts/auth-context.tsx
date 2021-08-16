@@ -107,7 +107,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
     const token = getCookie('devchallenge-token')
 
-    if (!token) {
+    if (!token || router.location.pathname === '/') {
       setIsLoading(false)
       return
     }

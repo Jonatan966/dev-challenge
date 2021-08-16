@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 
 import { useAuth } from '../contexts/auth-context'
@@ -12,7 +13,11 @@ export function AuthVerificationRoute({
   redirectAfterVerified,
   ...routeProps
 }: AuthVerificationRouteProps): JSX.Element {
-  const { user } = useAuth()
+  const { user, refreshUserInformation } = useAuth()
+
+  useEffect(() => {
+    refreshUserInformation()
+  }, [])
 
   if (!user && isPrivate) {
     return <Redirect to="/auth" />

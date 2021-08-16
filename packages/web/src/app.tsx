@@ -21,10 +21,10 @@ export function App(): JSX.Element {
   return (
     <BrowserRouter>
       <ChakraProvider>
-        <Route exact path="/" component={LandingPage} />
         <LoadingProvider>
           <AuthProvider>
             <Switch>
+              <Route exact path="/" component={LandingPage} />
               <Route path="/auth">
                 <AppLogoHeader />
                 <Switch>
