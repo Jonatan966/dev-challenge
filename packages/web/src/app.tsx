@@ -9,6 +9,7 @@ import { LoadingProvider } from './contexts/loading-context'
 import { ChallengeDetailsPage } from './pages/challenge-details'
 import { ChallengeQuestionPage } from './pages/challenge-question'
 import { HomePage } from './pages/home'
+import { LandingPage } from './pages/landing'
 import { LoginPage } from './pages/login'
 import { RegisterPage } from './pages/register'
 
@@ -20,6 +21,7 @@ export function App(): JSX.Element {
   return (
     <BrowserRouter>
       <ChakraProvider>
+        <Route exact path="/" component={LandingPage} />
         <LoadingProvider>
           <AuthProvider>
             <Switch>
